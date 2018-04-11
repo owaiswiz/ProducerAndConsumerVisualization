@@ -3,6 +3,9 @@ var autoProduce = true;
 var autoConsume = true;
 var nextProduce = 5;
 var nextConsume = 5;
+var consumerSpeed = 1000;
+var producerSpeed = 1000;
+
 function randomNumberFromRange(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
 }
@@ -13,6 +16,7 @@ function mapPercentageToVal() {
 
 function updateBottleVal() {
   $('.mask-rect')[0].style.height = `${mapPercentageToVal()}%`;
+  console.log(bufferVal)
 }
 
 function canConsume() {
@@ -45,10 +49,10 @@ function startProducing() {
 function autoProduceFunc() {
   if(nextProduce > 0) {
     if(canProduce()) {
-      $('.next-produce').text(`${nextProduce} seconds`);
+      $('.next-produce').text(`${(nextProduce * producerSpeed) / 1000} seconds`);
       $('.producer-status').text('Producing');
       nextProduce--;
-      setTimeout(autoProduceFunc,1000);
+      setTimeout(autoProduceFunc,producerSpeed);
     }
     else {
       $('.next-produce').text('Buffer is full');
@@ -73,10 +77,10 @@ function startConsuming() {
 function autoConsumeFunc() {
   if(nextConsume > 0) {
     if(canConsume()) {
-      $('.next-consume').text(`${nextConsume} seconds`)
+      $('.next-consume').text(`${(nextConsume * consumerSpeed) / 1000} seconds`)
       $('.consumer-status').text('Consuming');
       nextConsume--;
-      setTimeout(autoConsumeFunc,1000);
+      setTimeout(autoConsumeFunc,consumerSpeed);
     }
     else {
       $('.next-consume').text(`Buffer is empty`);
@@ -112,5 +116,12 @@ $('.btn-consume').click(function(){
     updateBottleVal();
   }
   else
-    alert("Unable to Consume. Buffer likely full.")
+    alert("Unable to Consume. Buffer likely empty.")
+});
+
+$('input[type=range]').on('change',function(e) {
+  if(e.target.id == 'consumerSpeed')
+    consumerSpeed = e.target.value;
+  else if(e.target.id == 'producerSpeed')
+    producerSpeed = e.target.value;
 });
