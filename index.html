@@ -8,22 +8,32 @@
 	<body>
 		<div class="row">
 			<div class="col-6">
-				<div class="row">Next Produce in : <span class="next-produce">5 seconds</span></div>
-				<div class="row">Next Consume in : <span class="next-consume">5 seconds</span></div>
+				Next Consume in : <span class="next-consume">5 seconds</span>
 			</div>
 			<div class="col-6">
-				<div class="slidercontainer">
-					<label for="#speed">Speed: </label>
-					<input type="range" min="1" max="100" value="50" class="slider" id="speed">
-				</div>
+				Next Produce in : <span class="next-produce">5 seconds</span>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-6">
-				Producer Status: <span class="producer-status">Producing</span>
+				Consumer Status: <span class="consumer-status">Consuming</span>
 			</div>
 			<div class="col-6">
-				Consumer Status: <span class="consumer-status">Consuming</span>
+				Producer Status: <span class="producer-status">Producing</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="slidercontainer">
+					<label>Consumer Speed: </label>
+					<input type="range" min="1" max="100" value="50" class="slider" id="consumerSpeed">
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="slidercontainer">
+					<label>Producer Speed: </label>
+					<input type="range" min="1" max="100" value="50" class="slider" id="producerSpeed">
+				</div>
 			</div>
 		</div>
 		<div class="row bottlerow">
