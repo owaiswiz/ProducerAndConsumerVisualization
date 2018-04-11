@@ -46,11 +46,13 @@ function autoProduceFunc() {
   if(nextProduce > 0) {
     if(canProduce()) {
       $('.next-produce').text(`${nextProduce} seconds`);
+      $('.producer-status').text('Producing');
       nextProduce--;
       setTimeout(autoProduceFunc,1000);
     }
     else {
-      $('.next-consume').text('Buffer is full');
+      $('.next-produce').text('Buffer is full');
+      $('.producer-status').text('Sleeping');
       setTimeout(autoProduceFunc,100);
     }
   }
@@ -72,12 +74,13 @@ function autoConsumeFunc() {
   if(nextConsume > 0) {
     if(canConsume()) {
       $('.next-consume').text(`${nextConsume} seconds`)
+      $('.consumer-status').text('Consuming');
       nextConsume--;
       setTimeout(autoConsumeFunc,1000);
     }
     else {
       $('.next-consume').text(`Buffer is empty`);
-      $('.consumer-status').text('Consuming');
+      $('.consumer-status').text('Sleeping');
       setTimeout(autoConsumeFunc,100);
     }
   }
@@ -92,3 +95,22 @@ updateBottleVal()
 
 startProducing()
 startConsuming()
+
+
+$('.btn-produce').click(function(){
+  if(canProduce()) {
+    produce();
+    updateBottleVal();
+  }
+  else
+    alert("Unable to Produce. Buffer likely full.")
+});
+
+$('.btn-consume').click(function(){
+  if(canConsume()) {
+    consume();
+    updateBottleVal();
+  }
+  else
+    alert("Unable to Consume. Buffer likely full.")
+});
